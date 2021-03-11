@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Creator</title>
+</head>
+<body>
+    
+    <section class="button-creator">
+        <form id="controles">
+            <label for="texto">Text</label>
+            <input type="text" name="texto" id="texto">
+            <label for="color">Color</label>
+            <input type="color" name="color" id="color">
+            <label for="backgroundColor">Background-color</label>
+            <input type="color" name="backgroundColor" id="backgroundColor">
+            <label for="height">Height</label>
+            <input type="range" name="height" id="height" min="0" max="400">
+            <label for="width">Width</label>
+            <input type="range" name="width" id="height" min="0" max="400">
+            <label for="border">Border</label>
+            <input type="text" name="border" id="border">
+            <label for="borderRadius">Border-radius</label>
+            <input type="range" name="borderRadius" id="borderRadius" min="0" max="100">
+            <label for="fontFamily">Font-family</label>
+            <select name="fontFamily" id="fontFamily">
+                <option value="Arial">Arial</option>
+                <option value="Georgia">Georgia</option>
+                <option value="monospace">Monospace</option>
+                <option value="IBM Plex Mono">IBM Plex Mono</option>
+            </select>
+            <label for="fontSize">Font-size</label>
+            <input type="number" name="fontSize" id="fontSize">
+        </form>
+        <section class="resultado">
+            <button class='btn'>Clique</button>
+            <pre><code class="css"></code></pre>
+        </section>
+    </section>
+
+
+    <style>
+        body{
+            margin: 0px;
+            background-color: #ccc;
+        }
+        label{
+            display: block;
+            margin-bottom: .5rem;
+            margin-top: 1rem;
+        }
+        input{
+            display: block;
+        }
+        .button-creator{
+            display: grid;
+            grid-gap: 30px;
+            padding: 30px;
+            grid-template-columns: 250px 1fr;
+        }
+        #controles{
+            font-family: 'IBM Plex Mono', monospace, Arial, Helvetica, sans-serif;
+            font-size: .875rem;
+            background: #eee;
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 1);
+        }
+        .css{
+            font-family: 'IBM Plex Mono', monospace, Arial, Helvetica, sans-serif;
+            color: #333;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        .css span {
+            display: block;
+            margin-bottom: .5rem;
+        }
+    </style>
+    <script>
+        const controles = document.querySelector('#controles');
+        const cssText = document.querySelector('.css');
+        const btn = document.querySelector('.btn');
+        controles.addEventListener('change', handleChange);
+        
+
+        const handleStyle = {
+            element: btn,
+            color(value){
+                this.element.style.color = value;
+            },
+            backgroundColor(value){
+                this.element.style.backgroundColor = value;
+            },
+            borderRadius(value){
+                this.element.style.borderRadius= value + 'px';
+            },
+            height(value){
+                console.log(value);
+                this.element.style.height = value + 'px';
+            },
+            width(value){
+                this.element.style.width = value + 'px';
+            },
+            width(value){
+                this.element.style.width = value + 'px';
+            },
+            texto(value){
+                this.element.innerText = value;
+            },
+            border(value){
+                this.element.style.border = value;
+            },
+            fontSize(value){
+                this.element.style.fontSize = value + 'rem';
+            },
+            fontFamily(value){
+                this.element.style.fontFamily = value;
+            },
+        }
+
+        function handleChange(event){
+            const name = event.target.name;
+            const value = event.target.value;
+
+            handleStyle[name](value);  
+            saveValues(name, value);
+            showCss();          
+        }
+        function saveValues(name, value){
+            localStorage[name] = value;
+        }
+        function setValues(){
+            const properties = Object.keys(localStorage);
+
+            properties.forEach((propertie) => {
+                handleStyle[propertie](localStorage[propertie]);
+                controles.elements[propertie].value = localStorage[propertie];
+            });
+            showCss();
+        };
+        setValues();
+
+        function showCss(){
+            cssText.innerHTML = '<span>' + btn.style.cssText.split('; ').join(';</span><span>');
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronometro</title>
+</head>
+<body>
+    <div>
+        <h2>Cronômetro</h2>
+        <div>
+            <button class="start">Start</button>
+            <button class="pause">Pause/Reset</button>
+            <span   class="cronometro" ></span>
+        </div>
+    <script>
+        // Mude a cor da tela para azul e depois para vermelho a cada 2s.
+            // setInterval(() => {
+            //     const body = document.querySelector('body');
+            
+            //     if(body.style.background === 'blue'){
+            //         body.style.background = 'red';
+            //     }else{
+            //         body.style.background = 'blue';
+            //     }
+            // }, 1000);
+
+        // Crie um cronometro utilizando o setInterval. Deve ser possível
+        // iniciar, pausar e resetar (duplo clique no pausar).
+        const button1 = document.querySelector('.start');
+        const button2 = document.querySelector('.pause');
+        const tempo   = document.querySelector('span');
+        let i = 0, timer;
+
+        button1.addEventListener('click', onClickStart);
+        button2.addEventListener('click', onClickPause);
+        button2.addEventListener('dblclick', onClickReset);
+        
+        function cronometro() {
+            tempo.textContent = i++;
+        }
+
+        function onClickStart(){
+            timer = setInterval( cronometro, 200);
+            tempo.style.border = '2px solid green';
+            tempo.style.padding = '5px';
+            tempo.style.borderRadius = '5px';
+            button1.setAttribute('disabled', '');
+        }
+        function onClickPause(){
+            console.log('Pause');
+            clearInterval(timer);
+            button1.removeAttribute('disabled', '');
+
+        }
+        function onClickReset(){
+            i = 0;
+            tempo.textContent = i;
+            button1.removeAttribute('disabled', '');
+        }
+       
+    </script>
+</body>
+</html>

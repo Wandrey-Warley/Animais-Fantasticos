@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+</head>
+<body>
+    <form name="contato" id="contato">
+        <label for="nome">Nome</label>
+        <Input id="nome"  name="nome" type="text" required></Input>
+        <span class='erro'></span>
+        <label for="email">E-mail</label>
+        <Input id="email" name="email" type="email" required></Input>
+        <span class='erro'></span>
+        <label for="mensagem">Mensagem</label>
+        <textarea id="mensagem" name="mensagem" ></textarea>
+        <select name="cores" id="cores">
+            <option value="white">Branco</option>
+            <option value="blue">Azul</option>
+            <option value="red">Vermelho</option>
+        </select>
+        <input type="color">
+        <input type="date">
+        <input type="number">
+        <input type="range">
+        <input type="password">
+        <label for="identidade">Possui identidade?</label>
+        <input type="checkbox" value="identidade" id="identidade">
+        <label for="casado">Casado?</label>
+        <input type="checkbox" value="casado" id="casado">
+
+    </form>
+    
+    <script>
+        
+        const contato = document.forms.contato;
+        const email = document.querySelector('#email');
+        const dados = {};
+        contato.addEventListener('change', handleChange);
+        
+        function handleChange (event){
+            console.log(event.target.name);
+            dados[event.target.name] = event.target.value;
+            
+            console.log(event.target.value);
+            document.body.style.backgroundColor = event.target.value;
+            const target = event.target;
+            if(target.checkValidity() && target.classList.contains('invalido')) { 
+                target.classList.remove('invalido');
+                target.nextElementSibling.innerText = '';
+            } else if(!target.checkValidity()) {
+                target.classList.add('invalido');
+                target.nextElementSibling.innerText = target.validationMessage;
+            }
+        };
+
+        console.log(contato.elements.nome.value);
+
+    </script>
+    <style>
+        label{
+            display: block;
+            font-family: Arial;
+            font-weight: bold;
+            margin-bottom: .5rem;
+            margin-bottom: 1rem;
+        }
+        form{
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        input, textarea{
+            width: 100%;
+            box-sizing: border-box;
+            padding: .5rem;
+            border: 2px solid #000;
+            font-size: 1rem;
+            margin-bottom: .5rem;
+        }
+        textarea{
+            max-height: 150px;
+            min-height: 50px;
+            max-width: 100%;
+            min-width: 100%;
+        }
+        input.invalido, .erro{
+            color: red;
+            border-color: red;
+        }
+    </style>
+</body>
+</html>

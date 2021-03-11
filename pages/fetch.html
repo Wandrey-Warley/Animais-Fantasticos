@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch</title>
+</head>
+<body>
+    <form action="" id="buscaCep">
+        <label for="cep">CEP</label>
+        <input type="text" name="cep" id="cep">
+        <input type="button" class="button" value="Buscar Cep">
+    </form>
+    <div class="resultado"></div>
+    <div>
+        <h2>Preço Bitcoin</h2>
+        <p class="btc"></p>
+    </div>
+    <div>
+        <h2>Piada Chuck Norris</h2>
+        <p class="piada"></p>
+        <button id="nextJoke">Proxima</button>
+    </div>
+    <style>
+        label, input{
+            display: block;
+        }
+        form{
+            padding: 20px;
+            border: none;
+            background-color: rgba(85, 85, 85, 0.582);
+            color: white;
+            width: fit-content;
+            font-family: "IBM Plex Mono";
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100px;
+            box-shadow: 0 0 2px 2px grey;
+            border-radius: 10px;
+        }
+        input{
+            font-family: "IBM Plex Mono";
+            border-radius: 10px;
+            background-color: rgb(250, 250, 250);
+            color: rgb(0, 0, 0);
+            border: 4px solid white;
+            font-size: 1rem;
+        } 
+    </style>
+    <script>
+        // Utilizando a API https://viacep.com.br/ws/${CEP}/json/
+        // crie um formulário onde o usuário pode digitar o cep
+        // e o endereço completo é retornado ao clicar em buscar
+        const inputCep = document.getElementById('cep');
+        const btnCep = document.querySelector('.button');
+        const resultado = document.querySelector('.resultado');
+
+        inputCep.addEventListener('keyup', handleClick);
+        btnCep.addEventListener('click', handleClick);
+
+        function handleClick(event){
+            if(inputCep.value.length == 8){
+                event.preventDefault();
+                buscaCep(inputCep.value);
+            }
+        }
+
+        function buscaCep(cep){
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => response.text()
+            .then(body => {
+            resultado.innerText = body;
+            })
+        )};
+
+        // Utilizando a API https://blockchain.info/ticker
+        // retorne no DOM o valor de compra da bitcoin and reais.
+        // atualize este valor a cada 30s
+        const btc = document.querySelector('.btc');
+
+        function fetchBTC(){
+            fetch('https://blockchain.info/ticker')
+            .then(response => response.json())
+            .then(btcJson => {
+                btc.innerText = ('R$ ' + btcJson.BRL.buy).replace('.', ',');
+            });
+        }
+
+        // setInterval(fetchBTC, 1000  * 60);
+        fetchBTC();
+        // Utilizando a API https://api.chucknorris.io/jokes/random
+        // retorne uma piada randomica do chucknorris, toda vez que
+        // clicar em próxima
+        const piada = document.querySelector('.piada');
+        const btnNextJoke = document.getElementById('nextJoke');
+
+        btnNextJoke.addEventListener('click', serchJoke);
+
+        function serchJoke (){
+            fetch('https://api.chucknorris.io/jokes/random')
+            .then(response => response.json()
+            .then(body => {
+                piada.innerText = body.value;
+            }))
+        }
+        serchJoke();
+
+    </script>
+</body>
+</html>
