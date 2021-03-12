@@ -60,6 +60,7 @@ animation: modal .3s forwards;
   
 .modal input {
     width: 100%;
+    border: 3px solid rgba(51, 51, 51, 0.425);
     padding: .7rem .5rem;
     box-sizing: border-box;
 }
