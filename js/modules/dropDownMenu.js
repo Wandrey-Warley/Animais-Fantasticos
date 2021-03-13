@@ -1,13 +1,12 @@
 // Essa função abre um menu ao passar o mouse por Sobre
 import outsideClick from './outisideClick.js';
 
-export default function initDropDownMenu() {
-  const dropDownMenus = document.querySelectorAll('[data-dropdown]');
+export default class DropDownMenu {
+  constructor(dropdownmenu) {
+    this.dropDownMenus = document.querySelectorAll(dropdownmenu);
+  }
 
-  function handleClick(event) {
-    // console.log(event.target.innerText)
-    // console.log(event)
-    // event.preventDefault();
+  handleClick(event) {
     if (event.target.innerText === 'SOBRE'
         || event.target.innerText === 'EMPRESA'
         || event.target.innerText === 'EQUIPE'
@@ -20,9 +19,15 @@ export default function initDropDownMenu() {
       this.classList.remove('active');
     });
   }
-  dropDownMenus.forEach((menu) => {
-    ['touchstart', 'click'].forEach((userEvent) => {
-      menu.addEventListener(userEvent, handleClick);
-    });
-  });
+
+  init() {
+    if (this.dropDownMenus) {
+      this.dropDownMenus.forEach((menu) => {
+        ['touchstart', 'click'].forEach((userEvent) => {
+          menu.addEventListener(userEvent, this.handleClick);
+        });
+      });
+    }
+    return this;
+  }
 }

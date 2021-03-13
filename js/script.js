@@ -26,7 +26,7 @@ modal.init();
 const tooltip = new Tooltip('[data-tooltip]');
 tooltip.init();
 
-const dropdown = new DropDownMenu('[data-tooltip]');
+const dropdown = new DropDownMenu('[data-dropdown]');
 dropdown.init();
 
 initMenuMobile();
