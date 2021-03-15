@@ -5,9 +5,9 @@ import TabNav from './modules/tabNav.js';
 import Modal from './modules/modal.js';
 import Tooltip from './modules/tooltip.js';
 import DropDownMenu from './modules/dropDownMenu.js';
+import fetchAnimais from './modules/fetchAnimais.js';
 import initMenuMobile from './modules/menuMobile.js';
 import initFuncionamento from './modules/funcionamento.js';
-import initFetchAnimais from './modules/fetchAnimais.js';
 import initFetchBtc from './modules/fetchBtc.js';
 import initScrollAnimated from './modules/scroll-animation.js';
 
@@ -31,6 +31,7 @@ dropdown.init();
 
 initMenuMobile();
 initFuncionamento();
-initFetchAnimais();
-initFetchBtc();
 initScrollAnimated();
+initFetchBtc();
+
+fetchAnimais('./animaisapi.json', '.numeros-grid');
