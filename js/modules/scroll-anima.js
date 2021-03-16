@@ -5,7 +5,7 @@ export default class ScrollAnima {
   constructor(sections) {
     this.sections = document.querySelectorAll(sections);
     this.activeClass = 'ativo';
-    this.halfWindow = window.innerHeight * 0.9;
+    this.halfWindow = window.innerHeight * 0.7;
 
     this.checkDistance = debounce(this.checkDistance.bind(this), 10);
   }
