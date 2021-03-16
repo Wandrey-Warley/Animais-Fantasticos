@@ -1,17 +1,39 @@
-// Essa função coloca um check no horario indicando se esta aberto
-export default function initFuncionamento(){
-  const funcionamento = document.querySelector('[data-semana]');
-  const diasSemana = funcionamento.dataset.semana.split(',').map(Number);
-  const horarioSemana = funcionamento.dataset.horario.split(',').map(Number);
+export default class Funcionamento {
+  constructor(functionamento, activeClass) {
+    this.funcionamento = document.querySelector(functionamento);
+    this.activeClass = activeClass;
+  }
 
-  const dataAtual = new Date();
-  const diaAtual = dataAtual.getDay();
-  const horarioAtual = dataAtual.getHours();
+  dadosFuncionamento() {
+    this.diasSemana = this.funcionamento.dataset.semana.split(',').map(Number);
+    this.horarioSemana = this.funcionamento.dataset.horario.split(',').map(Number);
+  }
 
-  const diaAberto = diasSemana.indexOf(diaAtual) !== -1;
-  const horarioAberto = (horarioAtual >= horarioSemana[0]) && (horarioAtual < horarioSemana[1]);
+  dadosAgora() {
+    this.dataAgora = new Date();
+    this.diaAgora = this.dataAgora.getDay();
+    this.horarioAgora = this.dataAgora.getUTCHours() - 3;
+  }
 
-  if (diaAberto && horarioAberto) {
-    funcionamento.classList.add('aberto');
+  estaAberto() {
+    const semanaAberto = this.diasSemana.indexOf(this.diaAgora) !== -1;
+    const horarioAberto = ((this.horarioAgora >= this.horarioSemana[0])
+      && (this.horarioAgora < this.horarioSemana[1]));
+    return semanaAberto && horarioAberto;
+  }
+
+  ativaAberto() {
+    if (this.estaAberto()) {
+      this.funcionamento.classList.add(this.activeClass);
+    }
+  }
+
+  init() {
+    if (this.funcionamento) {
+      this.dadosFuncionamento();
+      this.dadosAgora();
+      this.ativaAberto();
+    }
+    return this;
   }
 }
