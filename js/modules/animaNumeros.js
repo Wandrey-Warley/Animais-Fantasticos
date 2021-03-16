@@ -32,7 +32,7 @@ export default class AnimaNumeros {
   // A função ira executar a animação dos numeros, somente se existir a class ativo
   handleMutation(mutation) {
     if (mutation[0].target.classList.contains(this.observerClass)) {
-      // this.observer.disconnect();
+      this.observer.disconnect();
       this.animaNumeros();
     }
   }
