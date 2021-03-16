@@ -11,6 +11,7 @@ export default class initMenuMobile {
     // de events caso o usuário não define
     if (events === undefined) this.events = ['touchstart', 'click'];
     else this.events = events;
+
     this.openMenu = this.openMenu.bind(this);
   }
 
@@ -24,7 +25,7 @@ export default class initMenuMobile {
   }
 
   addMenuMobileEvents() {
-    this.events.forEach((userEvent) => this.menuButton.addEventListener(userEvent, this.openMenu));
+    this.events.forEach((evento) => this.menuButton.addEventListener(evento, this.openMenu));
   }
 
   init() {
