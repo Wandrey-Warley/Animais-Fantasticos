@@ -1,5 +1,5 @@
 // Essa função cria um menu para tela touch ao clicar em SOBRE
-import outsideClick from './outisideClick.js';
+import outsideClick from './outsiseClick.js';
 
 export default function initMenuMobile() {
   const menuButton = document.querySelector('[data-menu = "button"]');
