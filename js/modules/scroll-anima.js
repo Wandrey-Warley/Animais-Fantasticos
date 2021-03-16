@@ -1,11 +1,13 @@
+import debounce from './debounce.js';
+
 // Essa função faz a section aparecerem da esquerda para a direita animadas
 export default class ScrollAnima {
   constructor(sections) {
     this.sections = document.querySelectorAll(sections);
     this.activeClass = 'ativo';
-    this.halfWindow = window.innerHeight * 0.8;
+    this.halfWindow = window.innerHeight * 0.9;
 
-    this.checkDistance = this.checkDistance.bind(this);
+    this.checkDistance = debounce(this.checkDistance.bind(this), 10);
   }
 
   // Pega a distância de cada item em relação
