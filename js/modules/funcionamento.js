@@ -1,6 +1,6 @@
 export default class Funcionamento {
-  constructor(functionamento, activeClass) {
-    this.funcionamento = document.querySelector(functionamento);
+  constructor(funcionamento, activeClass) {
+    this.funcionamento = document.querySelector(funcionamento);
     this.activeClass = activeClass;
   }
 

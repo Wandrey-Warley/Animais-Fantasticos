@@ -131,6 +131,8 @@ html.textoMaior{
     font-family: Helvetica, sans-serif;
     margin-bottom: .5rem;
     margin-left: 30px;
+    transition: .8s;
+
 } 
 .mapa{
     grid-column: 2;
@@ -260,7 +262,7 @@ dt:hover{
 }
 [data-anime="accordion"] dd.ativo{
     display: block;
-    animation: slideDown .5s forwards;
+    animation: slideDown .8s backwards;
 }
 @keyframes slideDown{
     from{
